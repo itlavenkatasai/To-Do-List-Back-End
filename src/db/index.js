@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-export const dbConnectedToMongoDB = () => {
+export const connectToMongoDB = () => {
     try {
         mongoose.connect("mongodb://localhost:27017/todo-web-app");
         console.log('node is connected to db');

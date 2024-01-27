@@ -1,5 +1,5 @@
 import express from 'express';
-import { dbConnectedToMongoDB } from './src/db/index.js';
+import { ConnectedToMongoDB } from './src/db/index.js';
 // const express = require('express');
 const app = express();
 
@@ -8,5 +8,5 @@ app.get('/', function (req, res) {
     console.log('hello i am home');
 });
 
-dbConnectedToMongoDB();
+ConnectedToMongoDB();
 app.listen(3000);
