@@ -15,12 +15,14 @@ export const registrationHandler = async (req, res) => {
             phoneNumber,
             password
         };
+        console.log(user);
         const userCreate = await Users.create(user);
         return res.status(200).json({
             message: "user is registered successfully",
             data: userCreate,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: "something went wrong please try again"
         });

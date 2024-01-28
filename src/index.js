@@ -2,12 +2,16 @@ import express from 'express';
 import { connectToMongoDB } from './db/index.js';
 import {
     createTaskHandler,
-    updateTaskHandler,
+    updateTaskByIdHandler,
     registrationHandler,
     loginHandler,
+    listTaskHandler,
+    getTaskByIdHandler,
+    deleteTaskByIdHandler,
 
 } from './handlers/index.js';
 const app = express();
+app.use(express.json());
 // const express = require('express');
 
 app.get('/', function (req, res) {
@@ -16,10 +20,13 @@ app.get('/', function (req, res) {
 });
 
 connectToMongoDB();
-app.get('/register', registrationHandler);
-app.get('/login', loginHandler);
+app.post('/register', registrationHandler);
+app.post('/login', loginHandler);
 
 app.post('/tasks', createTaskHandler);
-app.patch('tasks/:id', updateTaskHandler);
+app.get('/tasks', listTaskHandler);
+app.get('/tasks/:id', getTaskByIdHandler);
+app.patch('tasks/:id', updateTaskByIdHandler);
+app.delete('/tasks/:id', deleteTaskByIdHandler);
 
 app.listen(3000);
