@@ -17,6 +17,7 @@ export const createTaskHandler = async (req, res) => {
             data: taskCreate,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: "something went wrong please try again"
         });
@@ -58,12 +59,17 @@ export const updateTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
         const { userId, text, dueDate, status, createdAt, updatedAt } = req.body;
+        const show = {
+            userId, text, dueDate, status, createdAt, updatedAt
+        }
+        console.log(show);
         const taskUpdate = await Tasks.findByIdAndUpdate(id, { userId, text, dueDate, status, createdAt, updatedAt }, { returnDocument: "after" });
         return res.status(200).json({
             message: "task is updated successfully",
             data: taskUpdate,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: "something went wrong please try again"
         });
