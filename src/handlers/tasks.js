@@ -2,14 +2,7 @@ import { Tasks } from '../models/index.js';
 
 export const createTaskHandler = async (req, res) => {
     try {
-        const {
-            userId,
-            text,
-            dueDate,
-            status,
-            createdAt,
-            updatedAt
-        } = req.body;
+        const { userId, text, dueDate, status, createdAt, updatedAt } = req.body;
         const task = {
             userId,
             text,
@@ -32,17 +25,8 @@ export const createTaskHandler = async (req, res) => {
 
 export const updateTaskHandler = async (req, res) => {
     try {
-        const {
-            id
-        } = req.params;
-        const {
-            userId,
-            text,
-            dueDate,
-            status,
-            createdAt,
-            updatedAt
-        } = req.body;
+        const { id } = req.params;
+        const { userId, text, dueDate, status, createdAt, updatedAt } = req.body;
         const taskUpdate = await Tasks.findByIdAndUpdate(id, { userId, text, dueDate, status, createdAt, updatedAt }, { returnDocument: "after" });
         return res.status(200).json({
             message: "task is updated successfully",
