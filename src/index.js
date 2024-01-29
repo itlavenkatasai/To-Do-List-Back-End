@@ -2,24 +2,32 @@ import express from 'express';
 import { connectToMongoDB } from './db/index.js';
 import {
     createTaskHandler,
-    updateTaskHandler,
+    updateTaskByIdHandler,
     registrationHandler,
     loginHandler,
-
+    listTasksHandler,
+    getTaskByIdHandler,
+    deleteTaskByIdHandler,
 } from './handlers/index.js';
+
+connectToMongoDB();
+
 const app = express();
-// const express = require('express');
+
+app.use(express.json());
 
 app.get('/', function (req, res) {
     res.send('Hello World');
     console.log('hello i am home');
 });
 
-connectToMongoDB();
-app.get('/register', registrationHandler);
-app.get('/login', loginHandler);
+app.post('/register', registrationHandler);
+app.post('/login', loginHandler);
 
 app.post('/tasks', createTaskHandler);
-app.patch('tasks/:id', updateTaskHandler);
+app.get('/tasks', listTasksHandler);
+app.get('/tasks/:id', getTaskByIdHandler);
+app.patch('/tasks/:id', updateTaskByIdHandler);
+app.delete('/tasks/:id', deleteTaskByIdHandler);
 
 app.listen(3000);

@@ -5,7 +5,7 @@ const taskSchema = new mongoose.Schema({
     text: { type: String },
     dueDate: { type: Date },
     status: { type: Boolean },
-    createdAt: { type: Date },
-    updatedAt: { type: Date },
+}, {
+    timestamps: true
 });
 export const Tasks = new mongoose.model('Tasks', taskSchema);
