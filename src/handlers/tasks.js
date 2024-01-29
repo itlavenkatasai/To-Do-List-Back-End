@@ -24,7 +24,7 @@ export const createTaskHandler = async (req, res) => {
     };
 };
 
-export const listTaskHandler = async (req, res) => {
+export const listTasksHandler = async (req, res) => {
     try {
         const listTask = await Tasks.find();
         return res.status(200).json({
