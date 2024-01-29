@@ -1,5 +1,6 @@
-import { Users } from '../models/index.js';
 import Jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
+import { Users } from '../models/index.js';
 
 export const registrationHandler = async (req, res) => {
     try {
@@ -10,16 +11,18 @@ export const registrationHandler = async (req, res) => {
                 message: "this phone number is already exist"
             });
         };
+        const hashedPassword = bcryptjs.hashSync(password, 10);
         const user = {
             name,
             phoneNumber,
-            password
+            password: hashedPassword,
         };
         console.log(user);
         const userCreate = await Users.create(user);
+        const userResponse = { name, phoneNumber, _id: userCreate._id };
         return res.status(200).json({
             message: "user is registered successfully",
-            data: userCreate,
+            data: userResponse,
         });
     } catch (error) {
         console.log(error);
@@ -32,13 +35,14 @@ export const registrationHandler = async (req, res) => {
 export const loginHandler = async (req, res) => {
     try {
         const { phoneNumber, password } = req.body;
-        const existingUser = await Users.findOne(phoneNumber);
+        const existingUser = await Users.findOne({ phoneNumber });
         if (existingUser == null) {
             return res.status(404).json({
                 message: "user not found"
             });
         };
-        if (password != existingUser.password) {
+        const isPasswordMatch = bcryptjs.compareSync(password, existingUser.password);
+        if (!isPasswordMatch) {
             return res.status(400).json({
                 message: "invalid password",
             });
