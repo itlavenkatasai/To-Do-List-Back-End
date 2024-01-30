@@ -40,7 +40,17 @@ export const listTasksHandler = async (req, res) => {
 export const getTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
+        if (id == null) {
+            return res.status(400).json({
+                message: "id is not found"
+            });
+        };
         const getTask = await Tasks.findById(id);
+        if (getTask == null) {
+            return res.status(404).json({
+                message: "task is not found"
+            });
+        };
         return res.status(200).json({
             message: "task get by id successfully",
             data: getTask,
@@ -58,6 +68,11 @@ export const updateTaskByIdHandler = async (req, res) => {
         const { id } = req.params;
         const { userId, text, dueDate, status, } = req.body;
         const taskUpdate = await Tasks.findByIdAndUpdate(id, { userId, text, dueDate, status, }, { returnDocument: "after" });
+        if (taskUpdate == null) {
+            return res.status(404).json({
+                message: "task is not found"
+            });
+        };
         return res.status(200).json({
             message: "task is updated successfully",
             data: taskUpdate,
@@ -73,7 +88,17 @@ export const updateTaskByIdHandler = async (req, res) => {
 export const deleteTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
+        if (id == null) {
+            return res.status(400).json({
+                message: "id is not found"
+            });
+        };
         const deleteTask = await Tasks.findByIdAndDelete(id);
+        if (deleteTask == null) {
+            return res.status(404).json({
+                message: "task is not found"
+            });
+        };
         return res.status(200).json({
             message: "task delete by id successfully",
             data: deleteTask,

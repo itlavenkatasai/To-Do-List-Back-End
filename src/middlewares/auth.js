@@ -1,15 +1,16 @@
 import jwt from 'jsonwebtoken';
 
 export const checkAndVerify = (req, res, next) => {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
+    console.log(authorization);
     try {
-        if (Authorization == null) {
+        if (authorization == null) {
             return res.status(400).json({
                 message: "authorization token is missing"
             });
         };
-        const tokens = Authorization.split(" ");
-        if (token.length != 2) {
+        const tokens = authorization.split(" ");
+        if (tokens.length != 2) {
             return res.status(200).json({
                 message: "invalid token"
             });
@@ -21,11 +22,11 @@ export const checkAndVerify = (req, res, next) => {
             });
         };
         const payload = jwt.verify(token, '@12345');
-        const { phoneNumber, userID } = payload;
+        const { phoneNumber, userId } = payload;
         req.locals = {
             phoneNumber,
-            userID
-        }
+            userId
+        };
         console.log("payload", payload);
         return next();
     } catch (error) {
@@ -37,6 +38,7 @@ export const checkAndVerify = (req, res, next) => {
             });
         };
         if (errorMessage == "invalid signature") {
+            console.log(errorMessage);
             return res.status(500).json({
                 message: "wrong token is given"
             });
