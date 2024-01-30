@@ -9,12 +9,15 @@ import {
     getTaskByIdHandler,
     deleteTaskByIdHandler,
 } from './handlers/index.js';
+import { checkAndVerify, logDetailsAndProceed } from './middlewares/index.js';
 
 connectToMongoDB();
 
 const app = express();
 
 app.use(express.json());
+
+app.use(logDetailsAndProceed);
 
 app.get('/', function (req, res) {
     res.send('Hello World');
@@ -23,6 +26,8 @@ app.get('/', function (req, res) {
 
 app.post('/register', registrationHandler);
 app.post('/login', loginHandler);
+
+app.use('/tasks', checkAndVerify);
 
 app.post('/tasks', createTaskHandler);
 app.get('/tasks', listTasksHandler);
