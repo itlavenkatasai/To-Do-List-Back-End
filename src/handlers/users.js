@@ -47,8 +47,9 @@ export const loginHandler = async (req, res) => {
                 message: "invalid password",
             });
         };
+        const { TOKEN_SECRET, TOKEN_EXPIRES_IN } = process.env;
         //token creation with payload,securitykey,token expire time arguments.
-        const token = await Jwt.sign({ phoneNumber, userId: existingUser._id }, '@12345', { expiresIn: '2h' });
+        const token = await Jwt.sign({ phoneNumber, userId: existingUser._id }, TOKEN_SECRET, { expiresIn: TOKEN_EXPIRES_IN });
         return res.status(200).json({
             data: {
                 token

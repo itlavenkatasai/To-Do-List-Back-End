@@ -21,7 +21,8 @@ export const checkAndVerify = (req, res, next) => {
                 message: "invalid token format"
             });
         };
-        const payload = jwt.verify(token, '@12345');
+        const { TOKEN_SECRET } = process.env;
+        const payload = jwt.verify(token, TOKEN_SECRET);
         const { phoneNumber, userId } = payload;
         req.locals = {
             phoneNumber,

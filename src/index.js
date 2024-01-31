@@ -1,4 +1,5 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { connectToMongoDB } from './db/index.js';
 import {
     createTaskHandler,
@@ -10,6 +11,10 @@ import {
     deleteTaskByIdHandler,
 } from './handlers/index.js';
 import { checkAndVerify, logDetailsAndProceed } from './middlewares/index.js';
+
+
+dotenv.config();
+const { PORT } = process.env;
 
 connectToMongoDB();
 
@@ -35,4 +40,4 @@ app.get('/tasks/:id', getTaskByIdHandler);
 app.patch('/tasks/:id', updateTaskByIdHandler);
 app.delete('/tasks/:id', deleteTaskByIdHandler);
 
-app.listen(3000);
+app.listen(PORT);
