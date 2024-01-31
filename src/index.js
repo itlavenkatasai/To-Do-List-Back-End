@@ -32,7 +32,7 @@ app.use('/tasks', checkAndVerify);
 app.post('/tasks', createTaskHandler);
 app.get('/tasks', listTasksHandler);
 app.get('/tasks/:id', getTaskByIdHandler);
-app.patch('/tasks/:id', updateTaskByIdHandler);
+app.put('/tasks/:id', updateTaskByIdHandler);
 app.delete('/tasks/:id', deleteTaskByIdHandler);
 
 app.listen(3000);
