@@ -2,7 +2,8 @@ import { Tasks } from '../models/index.js';
 
 export const createTaskHandler = async (req, res) => {
     try {
-        const { userId, text, dueDate, status } = req.body;
+        const { userId } = req.locals;
+        const { text, dueDate, status } = req.body;
         const task = {
             userId,
             text,
@@ -24,7 +25,8 @@ export const createTaskHandler = async (req, res) => {
 
 export const listTasksHandler = async (req, res) => {
     try {
-        const listTask = await Tasks.find();
+        const { userId } = req.locals;
+        const listTask = await Tasks.find({ userId });
         return res.status(200).json({
             message: "task list get successfully",
             data: listTask,
@@ -66,7 +68,8 @@ export const getTaskByIdHandler = async (req, res) => {
 export const updateTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId, text, dueDate, status, } = req.body;
+        const { userId } = req.locals;
+        const { text, dueDate, status, } = req.body;
         const taskUpdate = await Tasks.findByIdAndUpdate(id, { userId, text, dueDate, status, }, { returnDocument: "after" });
         if (taskUpdate == null) {
             return res.status(404).json({
