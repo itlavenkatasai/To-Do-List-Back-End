@@ -4,6 +4,7 @@ const usersSchema = new mongoose.Schema({
     name: { type: String },
     phoneNumber: { type: Number },
     password: { type: String },
+    confirmPassword: { type: String }
 }, {
     timestamps: true
 });
