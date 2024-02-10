@@ -10,6 +10,7 @@ import {
     listTasksHandler,
     getTaskByIdHandler,
     deleteTaskByIdHandler,
+    updateTaskStatusByIdHandler,
 } from './handlers/index.js';
 import { checkAndVerify, logDetailsAndProceed } from './middlewares/index.js';
 
@@ -41,6 +42,7 @@ app.post('/tasks', createTaskHandler);
 app.get('/tasks', listTasksHandler);
 app.get('/tasks/:id', getTaskByIdHandler);
 app.put('/tasks/:id', updateTaskByIdHandler);
+app.patch('/tasks/:id', updateTaskStatusByIdHandler);
 app.delete('/tasks/:id', deleteTaskByIdHandler);
 
 app.listen(PORT);

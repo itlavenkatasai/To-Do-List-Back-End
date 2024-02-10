@@ -88,6 +88,29 @@ export const updateTaskByIdHandler = async (req, res) => {
     };
 };
 
+export const updateTaskStatusByIdHandler = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        console.log("before status", status, id, req.body);
+        const taskUpdate = await Tasks.findByIdAndUpdate(id, { status }, { returnDocument: "after" });
+        if (taskUpdate == null) {
+            return res.status(404).json({
+                message: "task is not found"
+            });
+        };
+        return res.status(200).json({
+            message: "task is updated successfully",
+            data: taskUpdate,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "something went wrong please try again"
+        });
+    };
+};
+
 export const deleteTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
