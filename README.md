@@ -7,4 +7,7 @@
 
     npm i
     npm run start
+    
+### Note*
 
+    User Should have MongoDB in system and it should run on port 27017
