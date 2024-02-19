@@ -114,6 +114,7 @@ export const updateTaskStatusByIdHandler = async (req, res) => {
 export const deleteTaskByIdHandler = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log("id",id);
         if (id == null) {
             return res.status(400).json({
                 message: "id is not found"
