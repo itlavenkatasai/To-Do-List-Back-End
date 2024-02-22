@@ -1,8 +1,9 @@
 # To-Do List Back End
+# 🚀 Excited to share my latest project!
 
      This application is mainly used to create the server,
      to-do list APIs and to save to-do list items to the MongoDB.
-     🚀 Excited to share my latest project!
+
 
 📌 Description: This repository contains the backend code for the ToDo website, a full-stack web application built using Node.js, Express.js, and MongoDB. The backend provides RESTful API endpoints for user registration, login authentication, and task management functionalities.
 
