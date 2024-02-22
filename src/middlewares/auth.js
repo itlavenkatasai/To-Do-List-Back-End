@@ -11,7 +11,7 @@ export const checkAndVerify = (req, res, next) => {
         };
         const tokens = authorization.split(" ");
         if (tokens.length != 2) {
-            return res.status(200).json({
+            return res.status(400).json({
                 message: "invalid token"
             });
         };
